@@ -7,6 +7,7 @@ const session = require("express-session");
 const mongoClient = require("mongodb").MongoClient;
 const passport = require("passport");
 const config = require("./config.js");
+const GitHubStrategy = require("passport-github").Strategy;
 
 const app = express();
 
@@ -56,6 +57,25 @@ mongoClient.connect(
     /*
      *  ADD YOUR CODE BELOW
      */
+
+    //Configure Github Strategy
+    passport.use(
+      new GitHubStrategy(
+        {
+          clientID: config.GITHUB_CLIENT_ID,
+          clientSecret: config.GITHUB_CLIENT_SECRET,
+          callbackURL: config.GITHUB_CALLBACK_URL,
+        },
+        (accessToken, refreshToken, profile, done) => done(null, profile)
+      )
+    );
+    app.route("/auth/github").get(passport.authenticate("github"));
+    app
+      .route("/auth/github/callback")
+      .get(
+        passport.authenticate("github", { failureRedirect: "/" }),
+        (req, res) => res.redirect("/profile")
+      );
 
     /*
      *  ADD YOUR CODE ABOVE
