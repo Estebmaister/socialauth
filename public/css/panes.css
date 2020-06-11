@@ -1,0 +1,35 @@
+#tn {
+  margin-top: 30px;
+}
+
+#tn span {
+  font-weight: bold;
+}
+
+.pane-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.pane {
+  border: solid 1px #999;
+  border-radius: 10px;
+  min-width: 500px;
+  margin: 7px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: inline-block;
+}
+.specs {
+  font-family: monospace;
+  font-size: var(--space-root * 1.5);
+  margin: 10px auto;
+  text-align: left;
+  padding-left: 5px;
+  color: rgb(160, 160, 160);
+}
+
+.register {
+  display: none;
+}

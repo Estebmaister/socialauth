@@ -1,0 +1,33 @@
+html
+  head
+    title #{username}'s profile
+    meta(name='description', content='Profile section')
+    meta(name="author" content="Esteban Camargo")
+    meta(charset='utf-8')
+    meta(name="keywords" content="backend pug")
+
+    //- WhatsApp Description
+    meta(property="og:title" content="Backend server")
+    meta(property="og:description" content="Esteban's backend server in NodeJS, for customizable actions")
+    meta(property="og:image" content="https://estebmaister.com.ve/assets/images/profile.png")
+    meta(property="og:url" content="https://node-esteb.glitch.me/")
+    meta(property="og:type" content="website")
+    meta(property="og:site_name" content="Estebmaister")
+
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    link(rel="shortcut icon", href="./public/img/auth.ico", type="image/x-icon")
+    link(rel='stylesheet', type="text/css", href='./public/css/style.css')
+  body
+    h1 FCC Advanced Node and Express
+    h2#welcome Welcome, #{username}! Social Login
+    div
+      img(src=user.photo style='width:150px; border-radius:25%')
+      h3= user.name
+      p #{JSON.stringify(user)}
+      a(href='/logout') Logout
+      
+        
+    script(src='https://code.jquery.com/jquery-2.2.1.min.js', integrity='sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=', crossorigin='anonymous')
+    script(src='/public/client.js')
