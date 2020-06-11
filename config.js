@@ -7,8 +7,9 @@ const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT;
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+const P_URL = process.env.P_URL;
 const GITHUB_CALLBACK_URL =
-  "https://socialauth-esteb.glitch.me/auth/github/callback";
+  P_URL || "http://127.0.0.1:3000/auth/github/callback";
 
 module.exports = {
   SESSION_SECRET,

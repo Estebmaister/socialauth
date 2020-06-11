@@ -3,10 +3,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const fccTesting = require("./freeCodeCamp/fcctesting.js");
+const config = require("./config.js");
+const passport = require("passport");
 const session = require("express-session");
 const mongoClient = require("mongodb").MongoClient;
-const passport = require("passport");
-const config = require("./config.js");
 const GitHubStrategy = require("passport-github").Strategy;
 
 const app = express();
@@ -55,11 +55,8 @@ client.connect((err) => {
     });
   });
 
-  /*
-   *  ADD YOUR CODE BELOW
-   */
+  /* _______ Configure Github Strategy _______ */
 
-  //Configure Github Strategy
   passport.use(
     new GitHubStrategy(
       {
@@ -67,10 +64,10 @@ client.connect((err) => {
         clientSecret: config.GITHUB_CLIENT_SECRET,
         callbackURL: config.GITHUB_CALLBACK_URL,
       },
-      (accessToken, refreshToken, profile, cb) => {
+      (accessToken, refreshToken, profile, done) => {
         console.log(profile);
-        db.collection("socialusers").findAndModify(
-          { id: profile.id },
+        db.collection("socialUsers").findAndModify(
+          { githubId: profile.id },
           {},
           {
             $setOnInsert: {
@@ -82,16 +79,12 @@ client.connect((err) => {
               created_on: new Date(),
               provider: profile.provider || "",
             },
-            $set: {
-              last_login: new Date(),
-            },
-            $inc: {
-              login_count: 1,
-            },
+            $set: { last_login: new Date() },
+            $inc: { login_count: 1 },
           },
           { upsert: true, new: true }, //Insert object if not found, Return new object after modify
-          (err, doc) => {
-            return cb(null, doc.value);
+          (err, user) => {
+            return done(null, user.value);
           }
         );
       }
@@ -105,9 +98,7 @@ client.connect((err) => {
       (req, res) => res.redirect("/profile")
     );
 
-  /*
-   *  ADD YOUR CODE ABOVE
-   */
+  /* _______ ROUTES _______ */
 
   app.route("/").get((req, res) => {
     res.render("pug", { showLogin: false });
