@@ -11,15 +11,16 @@ document.onmousemove = function () {
 };
 
 const aLogin = document.querySelector("#a-login");
-const aRegister = document.querySelector("#a-register");
-const divLogin = document.querySelector(".login");
-const divRegister = document.querySelector(".register");
-
-aLogin.addEventListener("click", () => {
-  divLogin.style.display = "inline-block";
-  divRegister.style.display = "none";
-});
-aRegister.addEventListener("click", () => {
-  divRegister.style.display = "inline-block";
-  divLogin.style.display = "none";
-});
+if (aLogin) {
+  const aRegister = document.querySelector("#a-register");
+  const divLogin = document.querySelector(".login");
+  const divRegister = document.querySelector(".register");
+  aLogin.addEventListener("click", () => {
+    divLogin.style.display = "inline-block";
+    divRegister.style.display = "none";
+  });
+  aRegister.addEventListener("click", () => {
+    divRegister.style.display = "inline-block";
+    divLogin.style.display = "none";
+  });
+}
