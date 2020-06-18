@@ -13,7 +13,7 @@ const app = express();
 
 fccTesting(app); //For FCC testing purposes
 
-app.use("/public", express.static(process.cwd() + "/public"));
+app.use("/", express.static(process.cwd() + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -50,7 +50,7 @@ client.connect((err) => {
   });
 
   passport.deserializeUser((id, done) => {
-    db.collection("socialusers").findOne({ id: id }, (err, doc) => {
+    db.collection("socialUsers").findOne({ id: id }, (err, doc) => {
       done(null, doc);
     });
   });
@@ -65,14 +65,13 @@ client.connect((err) => {
         callbackURL: config.GITHUB_CALLBACK_URL,
       },
       (accessToken, refreshToken, profile, done) => {
-        console.log(profile);
-        db.collection("socialUsers").findAndModify(
+        console.log("Trying to connect: " + profile.username);
+        db.collection("socialUsers").findOneAndUpdate(
           { githubId: profile.id },
-          {},
           {
             $setOnInsert: {
               id: profile.id,
-              username: profile.login,
+              username: profile.username,
               name: profile.displayName || "John Doe",
               photo: profile.photos[0].value || "",
               email: profile.emails[0].value || "No public email",
@@ -84,6 +83,8 @@ client.connect((err) => {
           },
           { upsert: true, new: true }, //Insert object if not found, Return new object after modify
           (err, user) => {
+            if (err) return done(err);
+            console.log("Db operation success");
             return done(null, user.value);
           }
         );
