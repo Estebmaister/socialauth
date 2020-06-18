@@ -1,6 +1,6 @@
 html
   head
-    title #{username}'s profile
+    title #{user.username}'s profile
     meta(name='description', content='Profile section')
     meta(name="author" content="Esteban Camargo")
     meta(charset='utf-8')
@@ -17,8 +17,8 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
 
-    link(rel="shortcut icon", type="image/x-icon", href="./public/img/auth.ico")
-    link(rel='stylesheet', type="text/css", href='./public/css/style.css')
+    link(rel="shortcut icon", type="image/x-icon", href="./img/auth.ico")
+    link(rel='stylesheet', type="text/css", href='./css/style.css')
   body
     h1 FCC Advanced Node and Express
     h2#welcome Welcome, #{user.username}!
@@ -34,4 +34,4 @@ html
       
         
     script(type='application/x-javascript', src='https://code.jquery.com/jquery-2.2.1.min.js', integrity='sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=', crossorigin='anonymous')
-    script(type='application/x-javascript', src='/public/client.js')
+    script(type='application/x-javascript', src='/client.js')
