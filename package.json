@@ -1,11 +1,12 @@
 {
-  "name": "advance-node-and-express",
+  "name": "passport-social-auth",
   "author": "http://github.com/estebmaister",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Authentication with social media",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "echo 'no tests configured'"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
@@ -29,7 +30,8 @@
   },
   "keywords": [
     "node",
-    "hyperdev",
+    "passport",
+    "social-auth",
     "express"
   ],
   "license": "MIT"

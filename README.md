@@ -1,4 +1,47 @@
-# Advanced Node and Express - Implementation of Social Authentication
+# Node auth - Implementation of Social Authentication
+
+========================================
+
+![GitHub package.json version][gh-pack-json-v] ![Package.json express version][gh-pack-json-dep-v-express] ![Package.json mongodb version][gh-pack-json-dep-v-mongodb] ![Package.json passport version][gh-pack-json-dep-v-passport] ![GitHub code size in bytes][code-size-bdg] ![Last commit][last-commit-bdg] [![Website][website-bdg]][website] [![MIT License][license-bdg]][license] [![Twitter Follow][twitter-bdg]][twitter]
+
+[![Workflow badge][workflow-bdg]][glitch-workflow] [![PRs Welcome][prs-bdg]][prs-site]
+
+- Created from the [FCC](https://freecodecamp.com) repository, to compile the lessons about basic authentication with passport in node.
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F31OD9K)
+
+## Clone this repo
+
+Start with an empty repository and making the git init as follows:
+
+```git
+git init
+git clone https://github.com/Estebmaister/socialauth.git
+```
+
+If you want to run the FCC challenges, you'll have to add the files from the original repo by FCC.
+
+## Scripts
+
+To install all the dependencies:
+
+```npm
+npm install
+```
+
+To run the server static
+
+```node
+npm start
+```
+
+To run the server with dynamic refresh
+
+```node
+nodemon server.js
+```
+
+## Implementation
 
 The basic path this kind of authentication will follow in your app is:
 
@@ -78,3 +121,33 @@ db.collection("socialusers").findAndModify(
 ```
 
 With a findAndModify, it allows you to search for an object and update it, as well as insert the object if it doesn't exist and receive the new object back each time in our callback function. In this example, we always set the last_login as now, we always increment the login_count by 1, and only when we insert a new object(new user) do we populate the majority of the fields. Something to notice also is the use of default values. Sometimes a profile returned won't have all the information filled out or it will have been chosen by the user to remain private; so in this case we have to handle it to prevent an error.
+
+# License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+<!-- General links -->
+
+[version-bdg]: https://img.shields.io/badge/version-1.0.1-blue.svg?style=plastic
+[license]: ./LICENSE
+[twitter]: https://twitter.com/estebmaister
+[twitter-bdg]: https://img.shields.io/twitter/follow/estebmaister?label=Follow&style=social
+[prs-bdg]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat
+[prs-site]: (https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
+
+<!-- Repo badges links -->
+
+[license-bdg]: https://img.shields.io/github/license/estebmaister/socialauth?style=plastic
+[last-commit-bdg]: https://img.shields.io/github/last-commit/estebmaister/socialauth?style=plastic&logo=git&logoColor=white
+[code-size-bdg]: https://img.shields.io/github/languages/code-size/estebmaister/socialauth?style=plastic
+[gh-pack-json-v]: https://img.shields.io/github/package-json/v/estebmaister/socialauth?color=blue&style=plastic&logo=github
+[gh-pack-json-dep-v-express]: https://img.shields.io/github/package-json/dependency-version/estebmaister/socialauth/express?style=plastic&logo=express
+[gh-pack-json-dep-v-mongodb]: https://img.shields.io/github/package-json/dependency-version/estebmaister/socialauth/mongodb?style=plastic&logo=mongodb&logoColor=white
+[gh-pack-json-dep-v-passport]: https://img.shields.io/github/package-json/dependency-version/estebmaister/socialauth/passport?style=plastic&logo=passport
+
+<!-- Glitch web and workflow -->
+
+[website]: https://socialauth-esteb.glitch.me
+[website-bdg]: https://img.shields.io/website?down_color=violet&down_message=sleeping&label=servidor&logo=glitch&logoColor=white&style=plastic&up_color=green&up_message=online&url=https%3A%2F%2Fsocialauth-esteb.glitch.me
+[workflow-bdg]: https://github.com/estebmaister/socialauth/workflows/Glitch%20Sync/badge.svg
+[glitch-workflow]: https://github.com/Estebmaister/socialauth/blob/master/.github/workflows/main.yml

@@ -2,7 +2,6 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const fccTesting = require("./freeCodeCamp/fcctesting.js");
 const config = require("./config.js");
 const passport = require("passport");
 const session = require("express-session");
@@ -10,8 +9,6 @@ const mongoClient = require("mongodb").MongoClient;
 const GitHubStrategy = require("passport-github").Strategy;
 
 const app = express();
-
-fccTesting(app); //For FCC testing purposes
 
 app.use("/", express.static(process.cwd() + "/public"));
 app.use(bodyParser.json());
@@ -23,6 +20,7 @@ const client = new mongoClient(config.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 client.connect((err) => {
   if (err) return console.log("Database error: " + err);
   const db = client.db("test");
@@ -38,12 +36,10 @@ client.connect((err) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    }
+  const ensureAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) return next();
     res.redirect("/");
-  }
+  };
 
   passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -91,6 +87,7 @@ client.connect((err) => {
       }
     )
   );
+
   app.route("/auth/github").get(passport.authenticate("github"));
   app
     .route("/auth/github/callback")
