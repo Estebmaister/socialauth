@@ -46,12 +46,20 @@ client.connect((err) => {
   });
 
   passport.deserializeUser((id, done) => {
-    db.collection("socialUsers").findOne({ id: id }, (err, doc) => {
-      done(null, doc);
-    });
+    db.collection("socialUsers").findOne({ id: id }, (err, doc) =>
+      done(null, doc)
+    );
   });
 
   /* _______ Configure Github Strategy _______ */
+
+  const tryInsert = (profile, field, defaultValue) => {
+    try {
+      return profile[field][0].value;
+    } catch (error) {
+      return defaultValue;
+    }
+  };
 
   passport.use(
     new GitHubStrategy(
@@ -70,7 +78,7 @@ client.connect((err) => {
               username: profile.username,
               name: profile.displayName || "John Doe",
               photo: profile.photos[0].value || "",
-              email: profile.emails[0].value || "No public email",
+              email: tryInsert(profile, "emails", "No public email"),
               created_on: new Date(),
               provider: profile.provider || "",
             },
